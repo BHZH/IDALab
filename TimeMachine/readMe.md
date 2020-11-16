@@ -12,6 +12,9 @@ We distinguish 5 cases for filters:
 | Elements not built yet |(_invisible_)|
 | Elements already demolished |(_hidden_)| 
 
+![image](https://user-images.githubusercontent.com/73463175/99255439-38a92c00-2814-11eb-8415-992489c75cf7.png)
+
+
 ### For the plugin to function:
 Create 4 project parameters with the following conditions :
 - Parameter names:
@@ -23,7 +26,6 @@ Create 4 project parameters with the following conditions :
   - Text parameter
   - Values can vary among group instances
   
-![image](https://user-images.githubusercontent.com/73463175/99255439-38a92c00-2814-11eb-8415-992489c75cf7.png)
 
 #### General information
 This repository of scripts for Revit and other tools is brought to you by the innovation team of Basler&Hofmann.
