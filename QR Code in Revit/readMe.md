@@ -26,7 +26,5 @@ QR Code in Revit is a project by Basler&Hofmann and was first released in 2020. 
 - Revit API reference
 - Revit APIUI reference
 
-<img width="250" alt="ref" src="https://user-images.githubusercontent.com/73463175/97309673-a04a0800-1862-11eb-910e-db0715684324.PNG"> 
-
 
 Mohamed Nadeem.
