@@ -6,4 +6,4 @@ For more information :
 - [Our contact person](https://www.baslerhofmann.ch/en/metanavigation/contacts/en-ansprechpartner-detailseite/contact/5902.html)
 
 #### Legal information
-Our opensource tools are licensed under the MIT license.
+Our open source tools are licensed under the MIT license.
