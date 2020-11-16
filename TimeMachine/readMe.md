@@ -26,6 +26,15 @@ We distinguish 5 cases for filters:
 | Elements not built yet |(_invisible_)|
 | Elements already demolished |(_hidden_)| 
 
-
+### For the plugin to function:
+Create 4 project parameters :
+- Parameter names:
+  - "Construction-start"
+  - "Construction-end"
+  - "Demolition-start"
+  - "Demolition-end"
+- Parameter type:
+  - Text parameter
+  - Values can vary among group instances
 
 Mohamed Nadeem.
