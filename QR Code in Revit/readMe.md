@@ -1,5 +1,5 @@
 ## QR Code in Revit
-QR Code in Revit is a tool that allows you to generate QR Code images based on information from Revit. 
+QR Code in Revit is a tool brought to you by the innovation team of Basler&Hofmann that allows you to generate QR Code images based on information from Revit. 
 
 These QR Code images contain information about the location of Revit elements in a condensed format
 East(10)+North(10)+Elevation(7), ex: 
