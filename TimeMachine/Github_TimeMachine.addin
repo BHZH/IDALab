@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RevitAddIns>
+
+  <AddIn Type="Command">
+
+       <Name>Github_TimeMachine</Name>
+
+       <FullClassName>Github_TimeMachine.Class1</FullClassName>
+
+       <Text>BH_TimeMachine</Text> 
+
+       <Description>Create time based filters</Description>
+
+       <VisibilityMode>AlwaysVisible</VisibilityMode>
+
+       <Assembly>C:\AppData\Revit plugins\Github_TimeMachine.dll</Assembly>
+
+
+       <AddInId>b9d73fe0-93dd-484b-b8b7-970bcf204d5d</AddInId>
+
+    <VendorId>BaslerHofmann</VendorId>
+
+    <VendorDescription>Mohamed Nadeem, BaslerHofmann.ch</VendorDescription>
+
+  </AddIn>
+
+</RevitAddIns>
