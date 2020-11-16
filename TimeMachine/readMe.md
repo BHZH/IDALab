@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/73463175/99242511-9c752a00-27ff-11eb-9922-17c59d57693d.png)
+![image](https://user-images.githubusercontent.com/73463175/99255439-38a92c00-2814-11eb-8415-992489c75cf7.png)
 
 #### General information
 This repository of scripts for Revit and other tools is brought to you by the innovation team of Basler&Hofmann (BH).
