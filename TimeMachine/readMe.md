@@ -3,7 +3,7 @@
 ### Description:
 A nice user interface allows you to quickly create Revit filters based of time parameters.
 
-We distinguish 5 cases for filters:
+We distinguish 5 cases for colour filters:
 | Case | Colour |
 | --- | --- |
 | Elements under construction |(_Red_)|
