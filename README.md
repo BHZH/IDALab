@@ -7,3 +7,4 @@ For more information :
 
 #### Legal information
 Our open source tools are licensed under the MIT license.
+[Contribution guidelines for this project](IDALab/LICENSE)
