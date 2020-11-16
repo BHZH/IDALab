@@ -7,3 +7,8 @@ For more information :
 
 #### Legal information
 Our open source tools are licensed under the [MIT license](https://github.com/BHZH/IDALab/blob/main/LICENSE).
+
+#### Installation steps for beginners:
+- 1)
+- 2)
+- 3)
