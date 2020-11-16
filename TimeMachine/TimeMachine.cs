@@ -1,3 +1,10 @@
+/*
+TimeMachine for Revit
+Created on 16.11.2020
+By Basler&Hofmann SA (https://www.baslerhofmann.ch/)
+@author: Mohamed Nadeem
+*/
+
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
