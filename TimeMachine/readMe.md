@@ -39,7 +39,7 @@ For more information :
 QR Code in Revit is a project by Basler&Hofmann and was first released in 2020. It's licensed under the MIT license.
 
 #### Package references:
-- QRCoder Nuget Package QRCoder (https://github.com/codebude/QRCoder/)
+- System.Windows.Forms reference
 - Revit API reference
 - Revit APIUI reference
 
