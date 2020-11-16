@@ -1,19 +1,18 @@
 /*
 QR code creator for Revit
-Created on 13.11.2020
-
+Created on 16.11.2020
 By Basler&Hofmann SA (https://www.baslerhofmann.ch/)
 @author: Mohamed Nadeem
 */
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using QRCoder;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-
 
 namespace Github_QRCode
 {
@@ -40,7 +39,7 @@ namespace Github_QRCode
             ProjectPosition projPos = (doc).ActiveProjectLocation.GetProjectPosition(XYZ.Zero);
             XYZ iop = new XYZ(projPos.EastWest, projPos.NorthSouth, 0);
             XYZ pbp = new XYZ(ew, ns, ele);
-            XYZ lcP;
+            XYZ lcP= new XYZ(0,0,0);
             //Other definitions
             double ft2m = 0.3048; // for unit conversion
             string xCoord, yCoord, zCoord;
@@ -53,7 +52,19 @@ namespace Github_QRCode
             //Coordinate conversion
             rotationTransform1 =
                 Transform.CreateRotationAtPoint(XYZ.BasisZ, (rot * -1), iop);
-            lcP = (elem.Location as LocationPoint).Point;
+            //Get element location
+            if (null != (elem.Location as LocationPoint))
+            {
+                lcP = (elem.Location as LocationPoint).Point;
+            } else if (null != (elem.Location as LocationCurve))
+            {
+                Curve lcC = (elem.Location as LocationCurve).Curve;
+                lcP = (lcC.GetEndPoint(0)+(lcC.GetEndPoint(1))).Multiply(0.5); // curve midpoint
+            }
+            else
+            {
+                return "No valid location found for element number: "+elem.Id.IntegerValue;
+            }
             lcP = new XYZ(lcP.X + iop.X, lcP.Y + iop.Y, lcP.Z + iop.Z);
             lcP = rotationTransform1.OfPoint(lcP);
             lcP = new XYZ(lcP.X, lcP.Y, lcP.Z + pbp.Z);
@@ -81,10 +92,10 @@ namespace Github_QRCode
             qrTextOut = qrTextOut.Replace(",", "");
             qrTextOut = qrTextOut.Replace(".", "");
             #endregion
-            
+
             return qrTextOut;
         }
-        
+
         public void createQRCode(string imageText, string imagePath)
         // Create a QR Code image and save it in a given folder
         {
@@ -94,23 +105,36 @@ namespace Github_QRCode
             System.Drawing.Bitmap qrCodeImage = QR_code.GetGraphic(2);
             qrCodeImage.Save(imagePath, System.Drawing.Imaging.ImageFormat.Bmp);
         }
-    
+
+        public string VerifyDir(string path)
+        // Create a folder on desktop
+        {
+            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(path);
+            if (!dir.Exists)
+            {
+                dir.Create();
+            }
+            return path;
+        }
+        
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         //Main function
         {
             UIApplication uiapp = commandData.Application;
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Document doc = uidoc.Document;
-            
-            FilteredElementCollector myFEC = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_GenericModel).WhereElementIsNotElementType();
-            string imagesFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + (@"\BH_QRcode_Images");
+
+            string imagesFolderPath = VerifyDir(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + (@"\BH_QRcode_Images"));
             string myImagePath;
 
-            foreach (Element elem in myFEC)
+            IList<Element> pickedElements = uidoc.Selection.PickElementsByRectangle("Select elements for which you want to create QR Codes");
+
+            foreach (Element elem in pickedElements)
             {
                 myImagePath = imagesFolderPath + (@"\QR_") + elem.Id.ToString() + ".bmp";
                 createQRCode(qrCodeText(doc, doc.GetElement(elem.Id)), myImagePath);
             }
+            TaskDialog.Show("Baslerhofmann", pickedElements.Count + " QR Code images created.");
             return Result.Succeeded;
         }
     }
