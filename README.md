@@ -6,5 +6,4 @@ For more information :
 - [Our contact person](https://www.baslerhofmann.ch/en/metanavigation/contacts/en-ansprechpartner-detailseite/contact/5902.html)
 
 #### Legal information
-Our open source tools are licensed under the MIT license.
-[Contribution guidelines for this project](IDALab/LICENSE)
+Our open source tools are licensed under the [MIT license](https://github.com/BHZH/IDALab/blob/main/LICENSE).
