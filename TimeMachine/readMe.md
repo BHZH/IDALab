@@ -27,7 +27,7 @@ We distinguish 5 cases for filters:
 | Elements already demolished |(_hidden_)| 
 
 ### For the plugin to function:
-Create 4 project parameters :
+Create 4 project parameters with the following conditions :
 - Parameter names:
   - "Construction-start"
   - "Construction-end"
