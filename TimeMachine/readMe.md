@@ -16,15 +16,16 @@ We distinguish 5 cases for colour filters:
 
 
 ### For the plugin to function:
-Create 4 project parameters with the following conditions :
+Create 4 project or shared parameters with the following conditions :
 - Parameter names:
   - "Construction-start"
   - "Construction-end"
   - "Demolition-start"
   - "Demolition-end"
-- Parameter type:
-  - Text parameter
-  - Values can vary among group instances
+- Choose the following specifications :
+  - Type of parameter : Text
+  - Instance parameter
+  - Values can vary by group instance
   
 
 #### General information
