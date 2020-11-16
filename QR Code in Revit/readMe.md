@@ -6,6 +6,8 @@ These generated QR Code images contain information about the location of Revit e
 - Element location : E= 2547858.58, N = 1122112.22, Z=426.9
 - QR Code text: ***E2547858580N1122112220Z0426900***
 
+This tool is based on [QRCoder by Raffael Herrmann](https://github.com/codebude/QRCoder)
+
 ![image](https://user-images.githubusercontent.com/73463175/99229059-c7ef1900-27ed-11eb-8844-549399e87d52.png)
 ![image](https://user-images.githubusercontent.com/73463175/99231070-654b4c80-27f0-11eb-994b-b6e30df21852.png)
 
@@ -19,14 +21,7 @@ For more information :
 #### Legal information
 QR Code in Revit is a project by Basler&Hofmann and was first released in 2020. It's licensed under the MIT license.
 
-
-
-## QR Code in Revit
-This code allows Revit API developers to easily create QR Code images based on information from their Revit models.
-
-It is based on [QRCoder by Raffael Herrmann](https://github.com/codebude/QRCoder).
-
-### Package references:
+#### Package references:
 - QRCoder Nuget Package QRCoder (https://github.com/codebude/QRCoder/)
 - Revit API reference
 - Revit APIUI reference
