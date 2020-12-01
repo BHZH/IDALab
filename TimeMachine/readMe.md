@@ -23,7 +23,7 @@ Create 4 project or shared parameters with the following conditions :
   - "Demolition-start"
   - "Demolition-end"
 - Choose the following specifications :
-  - Type of parameter : Text
+  - Type of parameter : Integer
   - Instance parameter
   - Values can vary by group instance
   
