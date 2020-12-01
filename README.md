@@ -12,5 +12,5 @@ Our open source tools are licensed under the [MIT license](https://github.com/BH
 - Make sure Revit is closed
 - Copy the *.addin* file to the following path *C:\ProgramData\Autodesk\Revit\Addins\\...* (Choose the version of Revit that you're using)
 - Create a folder called "Revit plugins" in *C:\AppData*
-- Copy the *.dll* file to the following path *C:\AppData\Revit plugins*
+- Copy the *.dll* file(s) to the following path *C:\AppData\Revit plugins*
 - Open Revit and find the plugin under *external tools* bar
