@@ -25,7 +25,7 @@ Create 4 project or shared parameters with the following conditions :
 - Choose the following specifications :
   - Type of parameter : Integer
   - Instance parameter
-  - Values can vary by group instance
+  - Values can vary by group instance (if shared parameters)
   
 
 #### General information
