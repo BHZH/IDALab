@@ -14,7 +14,7 @@
 
        <VisibilityMode>AlwaysVisible</VisibilityMode>
 
-       <Assembly>C:\AppData\Revit plugins\Github_QRCode.dll</Assembly>
+       <Assembly>C:\ProgramData\Autodesk\Revit\Addins\2019\Github_QRCode.dll</Assembly>
 
 
        <AddInId>b9d73fe0-93cd-484b-b8b7-970bcf204d5d</AddInId>
