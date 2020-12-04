@@ -1,6 +1,6 @@
 /*
 QR code creator for Revit
-Created on 16.11.2020
+Created on 13.11.2020
 By Basler&Hofmann SA (https://www.baslerhofmann.ch/)
 @author: Mohamed Nadeem
 */
@@ -124,7 +124,7 @@ namespace Github_QRCode
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Document doc = uidoc.Document;
 
-            string imagesFolderPath = VerifyDir(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + (@"\BH_QRcode_Images"));
+            string imagesFolderPath = VerifyDir(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + (@"\QRcode_Images"));
             string myImagePath;
 
             IList<Element> pickedElements = uidoc.Selection.PickElementsByRectangle("Select elements for which you want to create QR Codes");
