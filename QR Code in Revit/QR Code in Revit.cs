@@ -72,7 +72,7 @@ namespace Github_QRCode
             //Shared coordinates of point
             xCoord = Math.Round(lcP.X, 3).ToString();
             yCoord = Math.Round(lcP.Y, 3).ToString();
-            zCoord = Math.Round(lcP.Y, 3).ToString();
+            zCoord = Math.Round(lcP.Z, 3).ToString();
             z0 = Math.Round(lcP.Z, 3);
             //QR Code text
 
