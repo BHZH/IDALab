@@ -1,5 +1,5 @@
 #### General information
-This repository of scripts for Revit and other tools is brought to you by the innovation team of Basler&Hofmann.
+This repository of scripts for Revit and other tools is brought to you by the innovation team of Basler & Hofmann.
 
 For more information :
 - [Our website](https://www.baslerhofmann.ch/)
