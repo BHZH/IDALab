@@ -530,11 +530,11 @@ namespace BH_TimeMachineForm
             trackBar2.Maximum = allValidDates.Count() - 1; //1er octobre 2023
             trackBar2.TickFrequency = 1; //Intervalle de 1 mois
 
-            dateTimePicker1.MinDate = minDate;
             dateTimePicker1.MaxDate = maxDate;
+            dateTimePicker1.MinDate = minDate;
 
-            dateTimePicker2.MinDate = minDate;
             dateTimePicker2.MaxDate = maxDate;
+            dateTimePicker2.MinDate = minDate;
 
         }
 
