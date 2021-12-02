@@ -66,9 +66,9 @@ namespace BH_App_ParameterMachine
                         myElem = e;
                         paramId = new ElementId(e.GetParameters(paramName).FirstOrDefault().Id.IntegerValue);
                         this.parameterId = paramId;
-                        this.isString = new ParameterValueProvider(paramId).IsStringValueSupported(e);
-                        this.isInt = new ParameterValueProvider(paramId).IsIntegerValueSupported(e);
-                        this.isDouble = new ParameterValueProvider(paramId).IsDoubleValueSupported(e);
+                        this.isString = e.LookupParameter(paramName).Definition.ParameterType == ParameterType.Text;//new ParameterValueProvider(paramId).IsStringValueSupported(e);
+                        this.isInt = e.LookupParameter(paramName).Definition.ParameterType == ParameterType.Integer;//new ParameterValueProvider(paramId).IsIntegerValueSupported(e);
+                        this.isDouble = e.LookupParameter(paramName).Definition.ParameterType == ParameterType.Number;//new ParameterValueProvider(paramId).IsDoubleValueSupported(e);
                         this.isElementId = new ParameterValueProvider(paramId).IsElementIdValueSupported(e);
                         this.paramValueProvider = new ParameterValueProvider(paramId);
                         this.paramFound = true;
@@ -81,19 +81,19 @@ namespace BH_App_ParameterMachine
             {
                 if (paramFound)
                 {
-                    if (isString)
+                    if (this.isString)
                     {
                         this.listStrValues= str_listOfParameterValues_(doc, doc.ActiveView, paramName);
                     }
-                    else if (isInt)
+                    else if (this.isInt)
                     {
                         this.listIntValues = int_listOfParameterValues(doc, doc.ActiveView, paramName);
                     }
-                    else if (isDouble)
+                    else if (this.isDouble)
                     {
                         this.listDblValues = double_listOfParameterValues(doc, doc.ActiveView, paramName);
                     }
-                    else if (isElementId)
+                    else if (this.isElementId)
                     {
                         this.listEIdValues = eId_listOfParameterValues(doc, doc.ActiveView, paramName);
                     }
@@ -110,22 +110,25 @@ namespace BH_App_ParameterMachine
                 FilteredElementCollector myFEC = new FilteredElementCollector(doc, v.Id).WhereElementIsNotElementType();
                 foreach (Element e in myFEC)
                 {
-                    try
+                    IList<Parameter> allParam = e.GetParameters(paramName);
+                    foreach (Parameter param in allParam)
                     {
-                        Parameter param = e.GetParameters(paramName).FirstOrDefault();
-                        string paramVal = "";
-                        if (param != null && param.AsString().Trim() != "")
+                        string paramVal;
+                        if (param != null)
                         {
                             paramVal = param.AsString();
+                            if (listOfParamVal.Contains(paramVal) == false)
+                            {
+                                try
+                                {
+                                    paramVal = paramVal.Trim();
+                                    listOfParamVal.Add(paramVal);
+                                }
+                                catch //param is empty
+                                {
+                                }
+                            }
                         }
-                        if (listOfParamVal.Contains(paramVal) == false)
-                        {
-                            listOfParamVal.Add(paramVal);
-                        }
-                    }
-                    catch
-                    {
-
                     }
                 }
                 return listOfParamVal;
@@ -136,9 +139,9 @@ namespace BH_App_ParameterMachine
                 FilteredElementCollector myFEC = new FilteredElementCollector(doc, v.Id).WhereElementIsNotElementType();
                 foreach (Element e in myFEC)
                 {
-                    try
+                    IList<Parameter> allParam = e.GetParameters(paramName);
+                    foreach (Parameter param in allParam)
                     {
-                        Parameter param = e.GetParameters(paramName).FirstOrDefault();
                         int paramVal = 0;
                         if (param.AsInteger() != 0)
                         {
@@ -149,10 +152,6 @@ namespace BH_App_ParameterMachine
                             listOfParamVal.Add(paramVal);
                         }
                     }
-                    catch
-                    {
-
-                    }
                 }
                 return listOfParamVal;
             }
@@ -162,22 +161,25 @@ namespace BH_App_ParameterMachine
                 FilteredElementCollector myFEC = new FilteredElementCollector(doc, v.Id).WhereElementIsNotElementType();
                 foreach (Element e in myFEC)
                 {
-                    try
+                    IList<Parameter> allParam = e.GetParameters(paramName);
+                    foreach (Parameter param in allParam)
                     {
-                        Parameter param = e.GetParameters(paramName).FirstOrDefault();
-                        double paramVal = 0;
-                        if (param.AsDouble() != 0)
+                        try
                         {
-                            paramVal = Math.Round(param.AsDouble(),doubleValuesPrecision);
+                            double paramVal = 0;
+                            if (param.AsDouble() != 0)
+                            {
+                                paramVal = Math.Round(param.AsDouble(), doubleValuesPrecision);
+                            }
+                            if (listOfParamVal.Contains(paramVal) == false)
+                            {
+                                listOfParamVal.Add(paramVal);
+                            }
                         }
-                        if (listOfParamVal.Contains(paramVal) == false)
+                        catch
                         {
-                            listOfParamVal.Add(paramVal);
-                        }
-                    }
-                    catch
-                    {
 
+                        }
                     }
                 }
                 return listOfParamVal;
@@ -845,32 +847,38 @@ namespace BH_form_ParameterMachine
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // listBox1
             // 
-            this.listBox1.BackColor = System.Drawing.Color.LightGray;
+            this.listBox1.BackColor = System.Drawing.Color.White;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(26, 95);
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(35, 117);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(338, 251);
+            this.listBox1.Size = new System.Drawing.Size(449, 308);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedValueChanged += new System.EventHandler(this.listBox1_SelectedValueChanged);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(25, 21);
+            this.textBox1.Location = new System.Drawing.Point(33, 26);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(338, 20);
+            this.textBox1.Size = new System.Drawing.Size(449, 22);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.LightGray;
-            this.button1.Location = new System.Drawing.Point(178, 352);
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(237, 433);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(186, 56);
+            this.button1.Size = new System.Drawing.Size(248, 69);
             this.button1.TabIndex = 1;
             this.button1.Text = "Generate Filters";
             this.button1.UseVisualStyleBackColor = false;
@@ -878,20 +886,23 @@ namespace BH_form_ParameterMachine
             // 
             // listBox2
             // 
-            this.listBox2.BackColor = System.Drawing.Color.LightGray;
+            this.listBox2.BackColor = System.Drawing.Color.White;
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(402, 95);
+            this.listBox2.ItemHeight = 16;
+            this.listBox2.Location = new System.Drawing.Point(536, 117);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(338, 251);
+            this.listBox2.Size = new System.Drawing.Size(449, 308);
             this.listBox2.TabIndex = 2;
             this.listBox2.Visible = false;
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.LightGray;
-            this.button2.Location = new System.Drawing.Point(554, 352);
+            this.button2.BackColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(739, 433);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(186, 56);
+            this.button2.Size = new System.Drawing.Size(248, 69);
             this.button2.TabIndex = 3;
             this.button2.Text = "Highlight selected filter";
             this.button2.UseVisualStyleBackColor = false;
@@ -902,9 +913,10 @@ namespace BH_form_ParameterMachine
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(28, 53);
+            this.label1.Location = new System.Drawing.Point(37, 65);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(225, 13);
+            this.label1.Size = new System.Drawing.Size(302, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "Step 1: Chose parameter to highlight its values";
             // 
@@ -912,9 +924,10 @@ namespace BH_form_ParameterMachine
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label2.Location = new System.Drawing.Point(399, 53);
+            this.label2.Location = new System.Drawing.Point(532, 65);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(269, 13);
+            this.label2.Size = new System.Drawing.Size(359, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "Step 2: Highlight only a specific values of the parameter";
             this.label2.Visible = false;
@@ -925,20 +938,33 @@ namespace BH_form_ParameterMachine
             this.button3.Enabled = false;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.button3.Location = new System.Drawing.Point(370, 95);
+            this.button3.Location = new System.Drawing.Point(493, 117);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(22, 250);
+            this.button3.Size = new System.Drawing.Size(29, 308);
             this.button3.TabIndex = 6;
             this.button3.Text = ">";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.ImageLocation = "https://user-images.githubusercontent.com/73463175/144309526-2d8f4e64-0afd-457d-9" +
+    "f77-24d076f53eeb.png";
+            this.pictureBox1.Location = new System.Drawing.Point(35, 468);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(195, 31);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(62)))), ((int)(((byte)(68)))));
-            this.ClientSize = new System.Drawing.Size(800, 449);
+            this.ClientSize = new System.Drawing.Size(1067, 553);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -947,11 +973,13 @@ namespace BH_form_ParameterMachine
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.ShowIcon = false;
             this.Text = "Basler&Hofmann ParameterMachine";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -967,9 +995,9 @@ namespace BH_form_ParameterMachine
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
-
 
 namespace BH_form_ParameterMachine
 {
@@ -1159,7 +1187,5 @@ namespace BH_form_ParameterMachine
         }
     }
 }
-
-
 
 #endregion
