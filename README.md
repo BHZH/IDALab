@@ -11,6 +11,6 @@ Our open source tools are licensed under the [MIT license](https://github.com/BH
 #### Installation steps :
 - Make sure Revit is closed
 - Copy the *.addin* file to the following path *C:\ProgramData\Autodesk\Revit\Addins\\...* (Choose the version of Revit that you're using)
-- Open the *.addin* text file, and correct the *assembly* path if needed (not necessary if you're using Revit 2019)
+- Open the *.addin* text file, and correct the *assembly* path if needed
 - Copy the *.dll* file(s) to the same path
 - Open Revit and find the plugin under *external tools* bar
